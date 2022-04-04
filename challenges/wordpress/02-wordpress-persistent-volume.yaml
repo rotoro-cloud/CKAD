@@ -16,3 +16,4 @@ spec:
     - ReadWriteMany
   hostPath:
     path: "/html"
+    type: DirectoryOrCreate
