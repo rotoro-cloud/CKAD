@@ -1,0 +1,17 @@
+# В отличие от mysql, служба wordpress должна быть доступна вне кластера
+# Мы выделим для нее порт 30080 на всех нодах, и при обращении на этот порт на любой узел кластера, трафик будет направлен в PODs с Wordpress
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  ports:
+    - port: 80
+      nodePort: 30080
+  selector:
+    app: wordpress
+    tier: frontend
+  type: NodePort
