@@ -11,5 +11,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 300Mi
   volumeName: "mysql-persistent-storage"
