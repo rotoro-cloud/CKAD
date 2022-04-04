@@ -10,7 +10,7 @@ metadata:
     tier: mysql
 spec:
   capacity:
-    storage: 1Gi
+    storage: 300Mi
   accessModes:
     - ReadWriteMany
   hostPath:
