@@ -1,0 +1,17 @@
+# Сначала создаем диск для БД
+# Имей в виду, что использование HostPath не является хорошей практикой!
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wordpress-persistent-storage
+  labels:
+    app: wordpress
+    tier: frontend
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/html"
