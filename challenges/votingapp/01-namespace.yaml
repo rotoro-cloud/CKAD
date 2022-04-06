@@ -1,0 +1,7 @@
+# Создадим Namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: vote
