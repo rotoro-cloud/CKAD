@@ -1,5 +1,6 @@
 # Образ Вордпресс представляет собой настроенный Apache, настроенный PHP и запеченный туда набор скриптов CMS Wordpress
-# Для правильной работы мы должны сообщить ему где его БД (т.е. служба mysql) и пароль к ней (это данные из из secret)
+# Для правильной работы мы должны сообщить ему где его БД (т.е. служба mysql), имя пользователя (это данные из из configmap) и пароль (это данные из из secret)
+# Обрати внимание, что данный в задании образ от `bitnami` работает по http на порту 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -22,18 +23,27 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: wordpress
+      - image: bitnami/wordpress
         name: wordpress
         env:
-        - name: WORDPRESS_DB_HOST
+        - name: BITNAMI_DEBUG
+          value: "true"
+        - name: MARIADB_HOST
           value: wordpress-mysql
-        - name: WORDPRESS_DB_PASSWORD
+        - name: WORDPRESS_DATABASE_NAME
+          value: challenge
+        - name: WORDPRESS_DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-user
+              key: username
+        - name: WORDPRESS_DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mysql-pass
-              key: password
+              key: user-password
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: wordpress
         volumeMounts:
         - name: wordpress-persistent-storage
