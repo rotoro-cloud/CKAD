@@ -1,4 +1,4 @@
-# Займем созданный том mysql
+# Займём созданный том mysql
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
