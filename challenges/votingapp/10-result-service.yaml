@@ -1,0 +1,18 @@
+# Служба для просмотра результатов
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: result
+  name: result-service
+  namespace: vote
+spec:
+  type: NodePort
+  ports:
+  - name: "result-service"
+    port: 5001
+    targetPort: 80
+    nodePort: 30280
+  selector:
+    app: result
