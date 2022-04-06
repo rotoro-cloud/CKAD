@@ -1,4 +1,4 @@
-# Займем диск веб-сервера
+# Займём диск веб-сервера
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
