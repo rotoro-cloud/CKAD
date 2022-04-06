@@ -1,0 +1,26 @@
+# Задача этого приложения - вычитать данные из базы и отдать результат пользователю
+# Здесь нам не нужна такая скорость, как при записи голосов, т.к. мы не боимся потерять входящие данные
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: result
+  name: result-deployment
+  namespace: vote
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: result
+  template:
+    metadata:
+      labels:
+        app: result
+    spec:
+      containers:
+      - image: dockersamples/examplevotingapp_result:before
+        name: result
+        ports:
+        - containerPort: 80
+          name: result
