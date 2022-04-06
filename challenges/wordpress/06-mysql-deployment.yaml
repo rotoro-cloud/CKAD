@@ -1,6 +1,6 @@
 # Здесь находится сама БД MySQL
-# Для сетапа в 1 реплику вполне подходит Deployment
-# Если требуется настройка с более сложной логикой, обратить к StatefulSets
+# Для сетапа в 1 реплику вполне подходит Deployment, и именно это требуется в задании
+# Если требуется настройка с более сложной логикой, обратиcь к StatefulSets
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -22,14 +22,28 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: mysql:5.7
+      - image: bitnami/mariadb
         name: mysql
         env:
-        - name: MYSQL_ROOT_PASSWORD
+        - name: BITNAMI_DEBUG
+          value: "true"
+        - name: MARIADB_DATABASE
+          value: challenge
+        - name: MARIADB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-user
+              key: username
+        - name: MARIADB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mysql-pass
-              key: password
+              key: user-password
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: root-password
         ports:
         - containerPort: 3306
           name: mysql
