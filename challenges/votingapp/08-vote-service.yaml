@@ -1,0 +1,18 @@
+# Эта служба выглядывает наружу из кластера на 30180 нодпорту
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: vote
+  name: vote-service
+  namespace: vote
+spec:
+  type: NodePort
+  ports:
+  - name: "vote-service"
+    port: 5000
+    targetPort: 80
+    nodePort: 30180
+  selector:
+    app: vote
