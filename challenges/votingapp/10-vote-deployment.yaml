@@ -1,0 +1,25 @@
+# Приложение, в котором голосуют. Оно должно быть легким и шустрым, а его задача - просто передавать данные в Redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vote
+  name: vote-deployment
+  namespace: vote
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote
+  template:
+    metadata:
+      labels:
+        app: vote
+    spec:
+      containers:
+      - image: dockersamples/examplevotingapp_vote:before
+        name: vote
+        ports:
+        - containerPort: 80
+          name: vote
