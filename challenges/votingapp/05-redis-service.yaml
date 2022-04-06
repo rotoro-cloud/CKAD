@@ -1,0 +1,18 @@
+# Благодаря этой службе, на фротенд сможет добраться до Redis, чтобы положить в него данные
+# Также с помощью этой службы, Worker сможет забирать данные из Redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis
+  name: redis
+  namespace: vote
+spec:
+  type: ClusterIP
+  ports:
+  - name: "redis-service"
+    port: 6379
+    targetPort: 6379
+  selector:
+    app: redis
