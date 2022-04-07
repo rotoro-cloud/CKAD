@@ -1,0 +1,79 @@
+# Создадим 6 дисков по 100Mi, чтобы потом наш sts смог подхватить их через `volumeClaimTemplate`
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis01
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  capacity: 
+    storage: 100Mi
+  hostPath:
+    path: "/redis01"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis02
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  capacity: 
+    storage: 100Mi
+  hostPath:
+    path: "/redis02"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis03
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  capacity: 
+    storage: 100Mi
+  hostPath:
+    path: "/redis03"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis04
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  capacity: 
+    storage: 100Mi
+  hostPath:
+    path: "/redis04"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis05
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  capacity: 
+    storage: 100Mi
+  hostPath:
+    path: "/redis05"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis06
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  capacity: 
+    storage: 100Mi
+  hostPath:
+    path: "/redis06"
