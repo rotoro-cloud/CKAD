@@ -1,0 +1,18 @@
+# Создаем диск для Mysql
+# С параметром DirectoryOrCreate мы всегда будем уверены, что директория на хосте будет в любом случае
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: drupal-mysql-pv
+  labels:
+    tier: backend
+spec:
+  storageClassName: manual
+  accessModes: 
+    - ReadWriteOnce
+  capacity:
+    storage: 300Mi
+  hostPath:
+    path: /drupal-mysql-data
+    type: DirectoryOrCreate
