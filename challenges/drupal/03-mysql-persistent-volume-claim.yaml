@@ -1,0 +1,16 @@
+# Здесь благодаря selector мы получаем нужный диск
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: drupal-mysql-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Mi
+  selector:
+    matchLabels:
+      tier: backend
