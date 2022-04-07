@@ -1,0 +1,13 @@
+# Внутренняя служба для БД
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drupal-mysql-service
+spec:
+  type: ClusterIP
+  selector:
+    app: drupal-mysql
+  ports:
+  - port: 3306
+    targetPort: 3306
