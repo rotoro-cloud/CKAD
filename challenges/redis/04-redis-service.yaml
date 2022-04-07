@@ -1,0 +1,19 @@
+# Как видишь у службы 2 порта
+# Один из них рабочий, второй для согласования работы Redis в виде кластера
+# Для осуществления координации между экземплярами Redis используется протокол `gossip`
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-cluster-service
+spec:
+  selector:
+    name: redis-cluster
+  ports:
+
+    - name: client
+      port: 6379
+      targetPort: 6379
+    - name: gossip
+      port: 16379
+      targetPort: 16379
