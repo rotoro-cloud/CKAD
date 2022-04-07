@@ -1,0 +1,16 @@
+# На самом деле можно обойтись и без storageClassName, он здесь не учавствует в процессе
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: drupal-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Mi
+  selector:
+    matchLabels:
+      tier: frontend
