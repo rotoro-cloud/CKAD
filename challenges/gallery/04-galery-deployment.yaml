@@ -1,0 +1,71 @@
+# По заданию мы объявляем переменные явно в манифесте, а также из secret и из configmap
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lychee-gallery
+spec:
+  selector:
+    matchLabels:
+      run: lychee-gallery
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: lychee-gallery
+    spec:
+      containers:
+        - name: lychee-gallery-container
+          image: linuxserver/lychee:4.4.0
+          env:
+            - name: DB_HOST
+              value: lychee-db-service
+            - name: DB_PORT
+              value: "3306"
+
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: lychee-pass
+                  key: user-name
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lychee-pass
+                  key: user-password
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: lychee-pass
+                  key: db-name
+
+            - name: PGID
+              valueFrom:
+                configMapKeyRef:
+                  name: lychee-settings
+                  key: PGID
+            - name: PUID
+              valueFrom:
+                configMapKeyRef:
+                  name: lychee-settings
+                  key: PUID
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: lychee-settings
+                  key: TZ
+
+          resources:
+              limits:
+                memory: 100Mi
+                cpu: 50m
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: images
+              mountPath: /pictures
+      volumes:
+        - name: config
+          emptyDir: {}
+        - name: images
+          emptyDir: {}
