@@ -1,0 +1,12 @@
+# Служба для связи уровня хранения с уровнем логики приложения
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: lychee-db-service
+spec:
+  selector:
+    db: mariadb
+  ports:
+    - port: 3306
+      targetPort: 3306
