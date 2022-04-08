@@ -1,5 +1,3 @@
-# По заданию ингрес доступен на порту 30030, и ты сможешь увидеть это приложение
-# Но для этого нужно добавить дополнительное правило для всех хостов
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -16,3 +14,5 @@ spec:
         backend:
           service:
             name: lychee-gallery-service
+            port:
+              number: 80
