@@ -1,0 +1,49 @@
+# Использование emptyDir, т.е. временного тома в POD, для базы данных ты вряд ли встретишь в реальной жизни
+# Здесь мы просто тренируем разные варианты
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lychee-db
+
+spec:
+  selector:
+    matchLabels:
+      db: mariadb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        db: mariadb
+    spec:
+      containers:
+        - image: mariadb:10.6
+          name: mariadb
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lychee-pass
+                  key: root-password
+            - name: MARIADB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: lychee-pass
+                  key: root-password
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lychee-pass
+                  key: root-password
+            - name: MARIADB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: lychee-pass
+                  key: root-password
+
+          volumeMounts:
+            - name: db
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: db
+          emptyDir: {}
