@@ -1,0 +1,18 @@
+# По заданию ингрес доступен на порту 30030, и ты сможешь увидеть это приложение
+# Но для этого нужно добавить дополнительное правило для всех хостов
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lychee-gallery-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: image-stock-free.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: lychee-gallery-service
