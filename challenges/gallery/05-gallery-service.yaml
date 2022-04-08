@@ -1,0 +1,12 @@
+# Служба, связывающая уровень бизнес-логики и уровень балансировки
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: lychee-gallery-service
+spec:
+  selector:
+    run: lychee-gallery
+  ports:
+    - port: 80
+      targetPort: 80
