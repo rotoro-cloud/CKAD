@@ -1,6 +1,17 @@
 # Образ Вордпресс представляет собой настроенный Apache, настроенный PHP и запеченный туда набор скриптов CMS Wordpress
 # Для правильной работы мы должны сообщить ему где его БД (т.е. служба mysql), имя пользователя (это данные из из configmap) и пароль (это данные из из secret)
 # Обрати внимание, что данный в задании образ от `bitnami` работает по http на порту 8080
+
+# Образ от bitnami требует переменную WORDPRESS_PASSWORD, поэтому мы добавили сюда секрет с этой переменной
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wordpress-pass
+type: Opaque
+data:
+  admin-password: dGVzdA==
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -26,6 +37,11 @@ spec:
       - image: bitnami/wordpress
         name: wordpress
         env:
+        - name: WORDPRESS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wordpress-pass
+              key: admin-password
         - name: BITNAMI_DEBUG
           value: "true"
         - name: MARIADB_HOST
